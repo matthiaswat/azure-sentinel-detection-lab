@@ -1,0 +1,48 @@
+# Architecture Overview
+
+## High-Level Architecture
+
+## Component Details
+
+| Component | Purpose | Configuration |
+|-----------|---------|---------------|
+| **Entra ID** | Source of sign-in logs | Data connector enabled in Sentinel |
+| **Log Analytics Workspace** | Stores logs | `law-detection-lab` |
+| **Microsoft Sentinel** | SIEM platform | Analytics rules + incident management |
+| **Analytics Rules** | Detection logic | KQL queries (see `/rules`) |
+| **Logic Apps** | Automation | Email + Jira playbooks |
+
+## Detection Rules
+
+### 1. Impossible Travel
+- **Logic**: Compares consecutive logins per user, alerts on country change within 30 minutes
+- **Key KQL functions**: `next()`, `extract()`, `datetime_diff()`
+- **Output**: User, route (PL → BE), time difference, source IP
+
+### 2. Failed Logins Spike
+- **Logic**: Groups failed logins in 15-minute windows, alerts on 3+ attempts
+- **Key KQL functions**: `bin()`, `summarize`, `count()`
+- **Output**: User, IP, attempt count, time range
+
+## Data Flow
+
+1. **User logs in** to Azure / Microsoft 365
+2. **Entra ID** generates sign-in event
+3. **Sentinel** ingests logs via connector
+4. **Analytics rule** runs every 5 minutes
+5. **Alert** created when conditions met
+6. **Playbook** triggered automatically
+7. **Notification** sent (Email / Jira)
+
+## MITRE ATT&CK Mapping
+
+| Detection | Tactic | Technique |
+|-----------|--------|-----------|
+| Impossible Travel | Initial Access (TA0001), Credential Access (TA0006) | Valid Accounts (T1078) |
+| Failed Logins Spike | Credential Access (TA0006) | Brute Force (T1110) |
+
+## Cost Optimization
+
+- Log Analytics: Pay-as-you-go (≈ $0.50/day)
+- Sentinel: $0/day (free tier for small volumes)
+- Logic Apps: Free tier (4000 actions/month)

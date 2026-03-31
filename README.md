@@ -20,6 +20,7 @@ A production-ready security monitoring lab built in **5 days** on Microsoft Azur
 | **Failed Logins Spike** | T1110 (Brute Force) | 3+ failed password attempts in 15 minutes. Indicates brute force or credential stuffing attack. |
  
 ## 📊 Architecture
+Entra ID Sign-in Logs → Microsoft Sentinel → Analytics Rules → Logic Apps → Email / Jira
 - **Data Source**: Entra ID (Azure AD) sign-in logs
 - **SIEM**: Microsoft Sentinel with custom KQL rules
 - **Automation**: Logic Apps playbooks for email and Jira integration

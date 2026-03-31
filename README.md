@@ -38,3 +38,9 @@ Entra ID Sign-in Logs → Microsoft Sentinel → Analytics Rules → Logic Apps 
 | Source Logs | Microsoft Entra ID |
 | Ticketing | Atlassian Jira (API) |
 | Notification | Office 365 Outlook |
+
+## 🔧 Importing Playbooks
+
+1. Go to Azure Logic Apps → **Import** → select `email_playbook.json`
+2. Update connections (Outlook / Jira API)
+3. Link to Sentinel analytics rules

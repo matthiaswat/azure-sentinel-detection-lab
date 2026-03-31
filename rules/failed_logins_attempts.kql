@@ -1,0 +1,10 @@
+SigninLogs
+| where ResultType == "50126"
+| summarize 
+    StartTime = min(TimeGenerated), 
+    EndTime = max(TimeGenerated), 
+    FailedAttempts = count() 
+    by UserPrincipalName, IPAddress, Location, AppDisplayName, bin(TimeGenerated, 15m)
+| where FailedAttempts >= 3
+| project StartTime, EndTime, UserPrincipalName, IPAddress, Location, AppDisplayName, FailedAttempts
+| sort by FailedAttempts desc

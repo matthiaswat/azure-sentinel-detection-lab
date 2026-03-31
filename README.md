@@ -20,7 +20,7 @@ A production-ready security monitoring lab built in **5 days** on Microsoft Azur
 | Rule | MITRE Technique | Detection Logic |
 |------|----------------|-----------------|
 | **Impossible Travel** | T1078 - Valid Accounts (T1078.001 - Default Accounts, T1078.002 - Domain Accounts, T1078.004 - Cloud Accounts) | Detects two successful logins from different countries within 30 minutes. Indicates possible account compromise or VPN abuse. |
-| **Failed Logins Spike** | T1110 (Brute Force) | 3+ failed password attempts in 15 minutes. Indicates brute force or credential stuffing attack. |
+| **Failed Logins Attempts** | T1110 (Brute Force) | 3+ failed password attempts in 15 minutes. Indicates brute force or credential stuffing attack. |
  
 ## 📊 Architecture
 Entra ID Sign-in Logs → Microsoft Sentinel → Analytics Rules → Logic Apps → Email / Jira

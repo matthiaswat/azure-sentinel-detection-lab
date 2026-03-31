@@ -1,0 +1,11 @@
+SigninLogs
+| where ResultType == 0
+| extend Country = extract(@"^([^,]+)", 1, Location)
+| project TimeGenerated, UserPrincipalName, IPAddress, Country
+| sort by UserPrincipalName asc, TimeGenerated asc
+| serialize
+| extend NextLogin = next(TimeGenerated, 1), NextCountry = next(Country, 1)
+| where isnotempty(NextLogin)
+| extend TimeDiff = datetime_diff('minute', NextLogin, TimeGenerated)
+| where TimeDiff < 30 and Country != NextCountry
+| project TimeGenerated, UserPrincipalName, IPAddress, Country, NextCountry, TimeDiff, NextLogin

@@ -12,6 +12,9 @@ A production-ready security monitoring lab built in **5 days** on Microsoft Azur
 - Automated incident response via email and Jira ticketing
 - Practical Azure Sentinel engineering, not just theory
 
+<img width="795" height="278" alt="image" src="https://github.com/user-attachments/assets/27402300-b218-422f-b548-f8a69e76b341" />
+
+
 ## 🎯 Detection Rules Implemented
 
 | Rule | MITRE Technique | Detection Logic |
